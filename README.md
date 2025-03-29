@@ -4,7 +4,8 @@ Holds a mixture of Dart / Flutter code I use in most projects, might have a thin
 
 ## Validators
 
-A collection of reusable validators for form validation and data validation. Each validator follows a simple interface and can be used independently or combined using the `MultiValidator`.
+A collection of reusable validators for form validation and data validation. Each validator follows a simple interface and can be used independently or combined using the `MultiValidator`. I like to use them with Flutter's `FormField` widgets.
+You can pass them to the `validator` parameter of the `FormField` widget since they are callable objects.
 
 ### Available Validators
 
@@ -19,9 +20,18 @@ A collection of reusable validators for form validation and data validation. Eac
 
 ```dart
 final validator = MultiValidator<String>([
-  RequiredValidator('This field is required'),
-  EmailValidator('Please enter a valid email'),
+    RequiredValidator('This field is required'),
+    EmailValidator('Please enter a valid email'),
 ]);
 
 final error = validator('example@email.com');
+
+TextFormField(
+    controller: _nameController,
+    decoration: const InputDecoration(
+        labelText: 'Plant Name',
+        border: OutlineInputBorder(),
+    ),
+    validator: const RequiredValidator('Plant name is required').call,
+);
 ```
