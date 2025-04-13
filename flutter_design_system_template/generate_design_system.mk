@@ -37,6 +37,10 @@ build:
 	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/'\''custom_/'\''$(PREFIX)_/g' {} \;
 	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/"custom_/"$(PREFIX)_/g' {} \;
 	
+	# Handle all export statements comprehensively while preserving paths
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/export '\''\([^'\'']*\)custom_/export '\''\1$(PREFIX)_/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/export "\([^"]*\)custom_/export "\1$(PREFIX)_/g' {} \;
+	
 	# Replace class name prefix in all files
 	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/Custom/$(CAP_PREFIX)/g' {} \;
 	
