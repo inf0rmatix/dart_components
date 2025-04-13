@@ -9,4 +9,4 @@ design_system:
 
 # Clean the build directory
 clean:
-	@echo "Clean command not implemented for Dart assembler" 
+	@rm -rf ./build
