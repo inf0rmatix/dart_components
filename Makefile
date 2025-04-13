@@ -5,7 +5,7 @@ all: design_system
 
 # Build the design system
 design_system:
-	@dart run assembler/bin/assembler.dart
+	@dart run assembly/bin/assemble_design_package.dart
 
 # Clean the build directory
 clean:

@@ -13,26 +13,41 @@ class DesignPackage {
 
     final prefix = await _getPrefix(args);
     final destDir = '$buildDir/${prefix}_design';
-    final capPrefix = _capitalize(prefix);
+    final camelCasePrefix = _camelCase(prefix);
 
-    _logger.info('📁 Creating build directory...');
+    final creatingBuildDirProgress = _logger.progress(
+      '📁 Creating build directory...',
+    );
     await Directory(buildDir).create(recursive: true);
+    creatingBuildDirProgress.complete();
+
+    final copyingProgress = _logger.progress('📋 Copying files...');
     await _copyDirectory(Directory(srcDir), Directory(destDir));
+    copyingProgress.complete();
 
-    _logger.info('🔤 Renaming files and directories...');
+    final renamingProgress = _logger.progress(
+      '🔤 Renaming files and directories...',
+    );
     await _renamePaths(destDir, 'custom_', '${prefix}_');
+    renamingProgress.complete();
 
-    _logger.info('📝 Replacing contents in files...');
-    await _replaceInFiles(destDir, prefix, capPrefix);
+    final replacingProgress = _logger.progress(
+      '📝 Replacing prefix in files...',
+    );
+    await _replaceInFiles(destDir, prefix, camelCasePrefix);
+    replacingProgress.complete();
+
+    final pubspecProgress = _logger.progress('📦 Updating pubspec.yaml...');
 
     final pubspec = File('$destDir/pubspec.yaml');
     if (await pubspec.exists()) {
-      _logger.info('📦 Updating pubspec.yaml...');
       final content = await pubspec.readAsString();
       await pubspec.writeAsString(
         content.replaceAll('name: custom_design', 'name: ${prefix}_design'),
       );
     }
+
+    pubspecProgress.complete();
 
     _logger.success('✅ Build complete! Output at $destDir');
   }
@@ -42,6 +57,7 @@ class DesignPackage {
       (arg) => arg.startsWith('PREFIX='),
       orElse: () => '',
     );
+
     final prefix =
         argPrefix.isNotEmpty
             ? argPrefix.split('=').last
@@ -52,7 +68,7 @@ class DesignPackage {
       exit(1);
     }
 
-    return prefix.trim();
+    return prefix.trim().toLowerCase().replaceAll(' ', '_');
   }
 
   String _prompt(String message) {
@@ -60,8 +76,11 @@ class DesignPackage {
     return stdin.readLineSync(encoding: utf8) ?? '';
   }
 
-  String _capitalize(String input) =>
-      input[0].toUpperCase() + input.substring(1);
+  String _camelCase(String input) =>
+      input
+          .split('_')
+          .map((word) => word.substring(0, 1).toUpperCase() + word.substring(1))
+          .join();
 
   Future<void> _copyDirectory(Directory source, Directory destination) async {
     if (!await destination.exists()) {
