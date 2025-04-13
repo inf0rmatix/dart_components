@@ -1,4 +1,4 @@
-name: app_design
+name: custom_design
 description: "A new Flutter package project."
 version: 0.0.1
 
@@ -15,7 +15,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
 # flutter:
-
 # To add assets to your package, add an assets section, like this:
 # assets:
 #   - images/a_dot_burr.jpeg

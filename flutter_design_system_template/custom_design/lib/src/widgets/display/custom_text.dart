@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum AppTextStyle {
+enum CustomTextStyle {
   displayLarge,
   displayMedium,
   displaySmall,
@@ -41,8 +41,8 @@ enum AppTextStyle {
   }
 }
 
-class AppText extends StatelessWidget {
-  final AppTextStyle? _style;
+class CustomText extends StatelessWidget {
+  final CustomTextStyle? _style;
 
   final String data;
   final TextStyle? style;
@@ -58,7 +58,7 @@ class AppText extends StatelessWidget {
   final TextHeightBehavior? textHeightBehavior;
   final Color? selectionColor;
 
-  const AppText(
+  const CustomText(
     this.data, {
     super.key,
     this.style,
@@ -76,7 +76,7 @@ class AppText extends StatelessWidget {
   }) : _style = null,
        super();
 
-  const AppText.displayLarge(
+  const CustomText.displayLarge(
     this.data, {
     super.key,
     this.style,
@@ -91,10 +91,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.displayLarge,
+  }) : _style = CustomTextStyle.displayLarge,
        super();
 
-  const AppText.displayMedium(
+  const CustomText.displayMedium(
     this.data, {
     super.key,
     this.style,
@@ -109,10 +109,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.displayMedium,
+  }) : _style = CustomTextStyle.displayMedium,
        super();
 
-  const AppText.displaySmall(
+  const CustomText.displaySmall(
     this.data, {
     super.key,
     this.style,
@@ -127,10 +127,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.displaySmall,
+  }) : _style = CustomTextStyle.displaySmall,
        super();
 
-  const AppText.headlineLarge(
+  const CustomText.headlineLarge(
     this.data, {
     super.key,
     this.style,
@@ -145,10 +145,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.headlineLarge,
+  }) : _style = CustomTextStyle.headlineLarge,
        super();
 
-  const AppText.headlineMedium(
+  const CustomText.headlineMedium(
     this.data, {
     super.key,
     this.style,
@@ -163,10 +163,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.headlineMedium,
+  }) : _style = CustomTextStyle.headlineMedium,
        super();
 
-  const AppText.headlineSmall(
+  const CustomText.headlineSmall(
     this.data, {
     super.key,
     this.style,
@@ -181,10 +181,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.headlineSmall,
+  }) : _style = CustomTextStyle.headlineSmall,
        super();
 
-  const AppText.titleLarge(
+  const CustomText.titleLarge(
     this.data, {
     super.key,
     this.style,
@@ -199,10 +199,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.titleLarge,
+  }) : _style = CustomTextStyle.titleLarge,
        super();
 
-  const AppText.titleMedium(
+  const CustomText.titleMedium(
     this.data, {
     super.key,
     this.style,
@@ -217,10 +217,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.titleMedium,
+  }) : _style = CustomTextStyle.titleMedium,
        super();
 
-  const AppText.titleSmall(
+  const CustomText.titleSmall(
     this.data, {
     super.key,
     this.style,
@@ -235,10 +235,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.titleSmall,
+  }) : _style = CustomTextStyle.titleSmall,
        super();
 
-  const AppText.labelLarge(
+  const CustomText.labelLarge(
     this.data, {
     super.key,
     this.style,
@@ -253,10 +253,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.labelLarge,
+  }) : _style = CustomTextStyle.labelLarge,
        super();
 
-  const AppText.labelMedium(
+  const CustomText.labelMedium(
     this.data, {
     super.key,
     this.style,
@@ -271,10 +271,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.labelMedium,
+  }) : _style = CustomTextStyle.labelMedium,
        super();
 
-  const AppText.labelSmall(
+  const CustomText.labelSmall(
     this.data, {
     super.key,
     this.style,
@@ -289,10 +289,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.labelSmall,
+  }) : _style = CustomTextStyle.labelSmall,
        super();
 
-  const AppText.bodyLarge(
+  const CustomText.bodyLarge(
     this.data, {
     super.key,
     this.style,
@@ -307,10 +307,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.bodyLarge,
+  }) : _style = CustomTextStyle.bodyLarge,
        super();
 
-  const AppText.bodyMedium(
+  const CustomText.bodyMedium(
     this.data, {
     super.key,
     this.style,
@@ -325,10 +325,10 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.bodyMedium,
+  }) : _style = CustomTextStyle.bodyMedium,
        super();
 
-  const AppText.bodySmall(
+  const CustomText.bodySmall(
     this.data, {
     super.key,
     this.style,
@@ -343,7 +343,7 @@ class AppText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = AppTextStyle.bodySmall,
+  }) : _style = CustomTextStyle.bodySmall,
        super();
 
   @override

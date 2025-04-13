@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
+class CustomColors {
   static const Color placeholder = Colors.white;
 }

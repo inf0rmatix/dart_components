@@ -7,7 +7,7 @@ all: build
 PREFIX := $(shell read -p "Enter desired prefix (e.g., 'my'): " prefix; echo $$prefix)
 
 # Source and build directories
-SRC_DIR := app_design
+SRC_DIR := custom_design
 BUILD_DIR := ../build
 
 # Ensure prefix is provided
@@ -26,23 +26,23 @@ build:
 	@cp -r $(SRC_DIR) $(BUILD_DIR)/$(PREFIX)_design
 	
 	# Rename files and directories
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -name "app_*" -exec sh -c 'mv "$$1" "$$(echo $$1 | sed "s/app_/$(PREFIX)_/")"' _ {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type d -name "app_*" -exec sh -c 'mv "$$1" "$$(echo $$1 | sed "s/app_/$(PREFIX)_/")"' _ {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -name "custom_*" -exec sh -c 'mv "$$1" "$$(echo $$1 | sed "s/custom_/$(PREFIX)_/")"' _ {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type d -name "custom_*" -exec sh -c 'mv "$$1" "$$(echo $$1 | sed "s/custom_/$(PREFIX)_/")"' _ {} \;
 	
 	# Replace all occurrences in all files
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/AppDesign/$(CAP_PREFIX)Design/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/app_design/$(PREFIX)_design/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/package:app_design/package:$(PREFIX)_design/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/src\/app_/src\/$(PREFIX)_/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/'\''app_/'\''$(PREFIX)_/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/"app_/"$(PREFIX)_/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/CustomDesign/$(CAP_PREFIX)Design/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/custom_design/$(PREFIX)_design/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/package:custom_design/package:$(PREFIX)_design/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/src\/custom_/src\/$(PREFIX)_/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/'\''custom_/'\''$(PREFIX)_/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/"custom_/"$(PREFIX)_/g' {} \;
 	
 	# Replace class name prefix in all files
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/App/$(CAP_PREFIX)/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/Custom/$(CAP_PREFIX)/g' {} \;
 	
 	# Update pubspec.yaml if it exists
 	@if [ -f "$(BUILD_DIR)/$(PREFIX)_design/pubspec.yaml" ]; then \
-		sed -i '' 's/name: app_design/name: $(PREFIX)_design/g' $(BUILD_DIR)/$(PREFIX)_design/pubspec.yaml; \
+		sed -i '' 's/name: custom_design/name: $(PREFIX)_design/g' $(BUILD_DIR)/$(PREFIX)_design/pubspec.yaml; \
 	fi
 	
 	@echo "Build complete! Files copied to $(BUILD_DIR)/$(PREFIX)_design with prefix '$(PREFIX)'"
