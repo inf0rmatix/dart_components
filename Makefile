@@ -29,9 +29,16 @@ build:
 	@find $(BUILD_DIR)/$(PREFIX)_design -type f -name "app_*" -exec sh -c 'mv "$$1" "$$(echo $$1 | sed "s/app_/$(PREFIX)_/")"' _ {} \;
 	@find $(BUILD_DIR)/$(PREFIX)_design -type d -name "app_*" -exec sh -c 'mv "$$1" "$$(echo $$1 | sed "s/app_/$(PREFIX)_/")"' _ {} \;
 	
-	# Replace class names in Dart files
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -name "*.dart" -exec sed -i '' 's/AppDesign/$(CAP_PREFIX)Design/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -name "*.dart" -exec sed -i '' 's/app_design/$(PREFIX)_design/g' {} \;
+	# Replace all occurrences in all files
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/AppDesign/$(CAP_PREFIX)Design/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/app_design/$(PREFIX)_design/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/package:app_design/package:$(PREFIX)_design/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/src\/app_/src\/$(PREFIX)_/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/'\''app_/'\''$(PREFIX)_/g' {} \;
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/"app_/"$(PREFIX)_/g' {} \;
+	
+	# Replace class name prefix in all files
+	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/App/$(CAP_PREFIX)/g' {} \;
 	
 	# Update pubspec.yaml if it exists
 	@if [ -f "$(BUILD_DIR)/$(PREFIX)_design/pubspec.yaml" ]; then \
