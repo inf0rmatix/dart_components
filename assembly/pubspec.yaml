@@ -1,4 +1,4 @@
-name: assembler
+name: assembly
 description: A sample command-line application.
 version: 1.0.0
 publish_to: none

@@ -5,8 +5,8 @@ all: design_system
 
 # Build the design system
 design_system:
-	@cd flutter_design_system_template && $(MAKE) -f generate_design_system.mk
+	@dart run assembler/bin/assembler.dart
 
 # Clean the build directory
 clean:
-	@cd flutter_design_system_template && $(MAKE) -f generate_design_system.mk clean 
+	@echo "Clean command not implemented for Dart assembler" 

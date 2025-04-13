@@ -68,12 +68,14 @@ class DesignPackage {
       await destination.create(recursive: true);
     }
 
-    await for (final entity in source.list(recursive: false)) {
-      final newPath = '${destination.path}/${entity.uri.pathSegments.last}';
+    await for (final entity in source.list(recursive: true)) {
+      final relativePath = entity.path.substring(source.path.length + 1);
+      final newPath = '${destination.path}/$relativePath';
+
       if (entity is File) {
-        await entity.copy(newPath);
+        await File(entity.path).copy(newPath);
       } else if (entity is Directory) {
-        await _copyDirectory(entity, Directory(newPath));
+        await Directory(newPath).create(recursive: true);
       }
     }
   }
