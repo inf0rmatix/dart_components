@@ -5,10 +5,12 @@ import 'package:mason_logger/mason_logger.dart';
 
 class DesignPackage {
   final _logger = Logger();
-  final srcDir = 'custom_design';
-  final buildDir = '../build';
+  final srcDir = 'flutter_design_system_template/custom_design';
+  final buildDir = 'build';
 
   Future<void> build(List<String> args) async {
+    _logger.info('📍 Current working directory: ${Directory.current.path}');
+
     final prefix = await _getPrefix(args);
     final destDir = '$buildDir/${prefix}_design';
     final capPrefix = _capitalize(prefix);
