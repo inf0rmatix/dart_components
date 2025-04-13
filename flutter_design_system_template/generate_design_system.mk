@@ -3,56 +3,58 @@
 # Default target
 all: build
 
-# Ask for prefix input
-PREFIX := $(shell read -p "Enter desired prefix (e.g., 'my'): " prefix; echo $$prefix)
-
-# Source and build directories
-SRC_DIR := custom_design
-BUILD_DIR := ../build
-
-# Ensure prefix is provided
-ifeq ($(PREFIX),)
-    $(error Please provide a prefix)
+# Prompt for prefix only if not set externally (e.g. `make build PREFIX=my`)
+ifndef PREFIX
+  PREFIX := $(shell read -p "Enter desired prefix (e.g., 'my'): " prefix; echo $$prefix)
 endif
 
-# Capitalize first letter of prefix
+# Directories
+SRC_DIR := custom_design
+BUILD_DIR := ../build
+DEST_DIR := $(BUILD_DIR)/$(PREFIX)_design
+
+# Capitalized prefix for class names
 CAP_PREFIX := $(shell echo $(PREFIX) | awk '{print toupper(substr($$0,1,1)) substr($$0,2)}')
 
-# Create build directory and copy files
-build:
-	@echo "Creating build directory..."
-	@mkdir -p $(BUILD_DIR)
-	@echo "Copying files with prefix replacement..."
-	@cp -r $(SRC_DIR) $(BUILD_DIR)/$(PREFIX)_design
-	
-	# Rename files and directories
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -name "custom_*" -exec sh -c 'mv "$$1" "$$(echo $$1 | sed "s/custom_/$(PREFIX)_/")"' _ {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type d -name "custom_*" -exec sh -c 'mv "$$1" "$$(echo $$1 | sed "s/custom_/$(PREFIX)_/")"' _ {} \;
-	
-	# Replace all occurrences in all files
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/CustomDesign/$(CAP_PREFIX)Design/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/custom_design/$(PREFIX)_design/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/package:custom_design/package:$(PREFIX)_design/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/src\/custom_/src\/$(PREFIX)_/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/'\''custom_/'\''$(PREFIX)_/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/"custom_/"$(PREFIX)_/g' {} \;
-	
-	# Handle all export statements comprehensively while preserving paths
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/export '\''\([^'\'']*\)custom_/export '\''\1$(PREFIX)_/g' {} \;
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/export "\([^"]*\)custom_/export "\1$(PREFIX)_/g' {} \;
-	
-	# Replace class name prefix in all files
-	@find $(BUILD_DIR)/$(PREFIX)_design -type f -exec sed -i '' 's/Custom/$(CAP_PREFIX)/g' {} \;
-	
-	# Update pubspec.yaml if it exists
-	@if [ -f "$(BUILD_DIR)/$(PREFIX)_design/pubspec.yaml" ]; then \
-		sed -i '' 's/name: custom_design/name: $(PREFIX)_design/g' $(BUILD_DIR)/$(PREFIX)_design/pubspec.yaml; \
-	fi
-	
-	@echo "Build complete! Files copied to $(BUILD_DIR)/$(PREFIX)_design with prefix '$(PREFIX)'"
+# Validate prefix
+ifeq ($(strip $(PREFIX)),)
+    $(error Please provide a non-empty prefix)
+endif
 
-# Clean build directory
+build:
+	@echo "📁 Creating build directory..."
+	@mkdir -p $(BUILD_DIR)
+	@cp -r $(SRC_DIR) $(DEST_DIR)
+
+	@echo "🔤 Replacing file and directory names..."
+	@find $(DEST_DIR) -depth -name "*custom_*" | while read path; do \
+		new_path=$$(echo $$path | sed "s/custom_/$(PREFIX)_/g"); \
+		mv "$$path" "$$new_path"; \
+	done
+
+	@echo "📝 Replacing contents in files..."
+	@find $(DEST_DIR) -type f | while read file; do \
+		sed -i '' \
+			-e "s/CustomDesign/$(CAP_PREFIX)Design/g" \
+			-e "s/Custom/$(CAP_PREFIX)/g" \
+			-e "s/custom_design/$(PREFIX)_design/g" \
+			-e "s/package:custom_design/package:$(PREFIX)_design/g" \
+			-e "s/src\/custom_/src\/$(PREFIX)_/g" \
+			-e "s/'custom_/'$(PREFIX)_/g" \
+			-e 's/"custom_/"$(PREFIX)_/g' \
+			-e "s/export '\([^']*\)custom_/export '\1$(PREFIX)_/g" \
+			-e 's/export "\([^"]*\)custom_/export "\1$(PREFIX)_/g' \
+			"$$file"; \
+	done
+
+	@echo "📦 Updating pubspec.yaml if it exists..."
+	@if [ -f "$(DEST_DIR)/pubspec.yaml" ]; then \
+		sed -i '' "s/name: custom_design/name: $(PREFIX)_design/g" "$(DEST_DIR)/pubspec.yaml"; \
+	fi
+
+	@echo "✅ Build complete! Output at $(DEST_DIR)"
+
 clean:
-	@echo "Cleaning build directory..."
+	@echo "🧹 Cleaning build directory..."
 	@rm -rf $(BUILD_DIR)
-	@echo "Clean complete!" 
+	@echo "✅ Clean complete!"
