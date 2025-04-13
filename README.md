@@ -35,3 +35,30 @@ TextFormField(
     validator: const RequiredValidator('Plant name is required').call,
 );
 ```
+
+## Design System Template
+
+A Flutter package template that provides a foundation for building custom design systems by encapsulating Flutter's Material widgets. This template makes it easy to create a consistent design language across your applications by wrapping standard widgets with your custom styling.
+
+It also has handy shorthand factory functions like `Text.titleLarge` or `Text.bodyMedium`.
+
+### Usage
+
+To generate a custom design system package:
+
+1. From the repository root, run:
+
+   ```bash
+   make design_system
+   ```
+
+2. When prompted, enter your desired prefix (e.g., 'my' for MyButton, MyTextField, etc.)
+3. The generated package will be available in the `/build` directory with all files and classes using your specified prefix
+
+You can also specify the prefix directly:
+
+```bash
+make design_system PREFIX=my
+```
+
+The generated package in `/build` can be copied and used directly in your Flutter projects. It includes pre-configured widgets that follow your design system's specifications.
