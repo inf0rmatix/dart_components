@@ -1,0 +1,3 @@
+class CustomThemeData {
+  const CustomThemeData();
+}
