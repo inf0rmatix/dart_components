@@ -348,7 +348,11 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = style ?? _style?.asTextStyle(context);
+    var textStyle = _style?.asTextStyle(context);
+
+    if (style != null) {
+      textStyle = (textStyle ?? const TextStyle()).merge(style);
+    }
 
     return Text(
       data,

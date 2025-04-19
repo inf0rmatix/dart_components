@@ -5,7 +5,7 @@ import 'custom_theme_data.dart';
 class CustomTheme extends InheritedWidget {
   final CustomThemeData data;
 
-  const CustomTheme({super.key, required super.child, required this.data});
+  const CustomTheme({super.key, required this.data, required super.child});
 
   static CustomThemeData of(BuildContext context) {
     final CustomTheme? theme =
