@@ -41,7 +41,6 @@ enum CustomTextStyle {
   }
 }
 
-/// A widget that displays text using predefined Material 3 typography styles.
 class CustomText extends StatelessWidget {
   final CustomTextStyle? _style;
 
