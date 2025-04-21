@@ -1,6 +1,21 @@
 typedef FactoryFunction<T> = T Function();
 
 /// A simple service locator to register and retrieve services.
+///
+/// Example:
+/// ```dart
+/// Locator.registerLazySingleton(() => MyService());
+/// final myService = Locator.get<MyService>();
+/// ```
+///
+/// You can always use any other registered singleton within the factory, but you need to ensure the other
+/// singleton is also registered in the locator.
+///
+/// ```dart
+/// Locator.registerLazySingleton(() => MyRepository());
+/// Locator.registerLazySingleton(() => MyService(Locator.get<MyRepository>());
+/// final myService = Locator.get<MyService>();
+/// ```
 class Locator {
   /// Get a singleton instance of [T].
   static T get<T>() => _Locator.instance.get<T>();
