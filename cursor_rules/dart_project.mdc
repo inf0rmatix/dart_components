@@ -1,0 +1,93 @@
+---
+description: Project structure and preferred tools for Dart packages and Flutter applications
+globs:
+  - lib/**
+  - test/**
+  - analysis_options.yaml
+alwaysApply: false
+---
+
+# Project structure
+
+- The project entry point is located in the `lib/` folder:
+  - For a **package**: `lib/<package_name>.dart` explicitly exports the public API via `export 'src/...';`
+  - For an **application** (e.g., server or Flutter app): `lib/main.dart` is the entry point
+- The `lib/src/` folder contains only structural elements:
+  - `features/`: all domain modules. Each feature follows this structure:
+    - `model/`: data classes (annotated with `@MappableClass()` from `dart_mappable`)
+    - `repository/`: data access layer (e.g., local persistence, APIs)
+    - `service/`: business logic
+    - For Flutter apps only:
+      - `logic/`: BLoCs or Cubits (typically using `flutter_bloc`)
+      - `view/`: Pages, screens
+      - `widgets/`: Reusable UI components
+  - `common/`: reusable code across features, such as:
+    - `extensions/`: common Dart helpers
+    - `routing/`: route configuration (typically using `go_router`)
+    - `config/`: environment or app configuration
+  - `util/`: helper code that doesn’t clearly belong to a feature or `common/`
+- The test directory mirrors the exact structure of the `lib/` directory.
+  - Example: `lib/src/features/foo/model/bar.dart` → `test/src/features/foo/model/bar_test.dart`
+- Avoid barrel files inside `src/`. Use only a single top-level entry point (`lib/<package_name>.dart`) for public exports.
+- Avoid importing directly from `src/` in external packages. Only use public exports.
+
+---
+
+## Preferred packages and tools
+
+- ✅ **Shared across all projects:**
+  - `dart_mappable` – for serialization, `copyWith`, and equality
+  - `build_runner` – for all code generation
+  - `collection` – for safe and expressive collection utilities
+  - `logging` – for structured and consistent log output
+
+- ✅ **Flutter only:**
+  - `go_router` – for declarative and nested routing
+  - `flutter_gen_runner` – for asset and color references
+  - `phosphor_flutter` – for consistent and modern iconography
+  - `intl` – for localization and date/number formatting
+
+---
+
+## Static analysis and linter configuration
+
+- Use one of the following base configurations in `analysis_options.yaml`:
+  - **Flutter projects**:  
+
+    ```yaml
+    include: package:flutter_lints/flutter.yaml
+    ```
+
+  - **Pure Dart packages**:  
+
+    ```yaml
+    include: package:lints/recommended.yaml
+    ```
+
+- Apply these additional linter rules:
+
+  ```yaml
+  linter:
+    rules:
+      - prefer_const_constructors
+      - prefer_const_declarations
+      - prefer_const_literals_to_create_immutables
+      - prefer_const_constructors_in_immutables
+      - prefer_relative_imports
+      - avoid_relative_lib_imports
+      - require_trailing_commas
+      - parameter_assignments
+      - prefer_final_in_for_each
+      - prefer_final_fields
+
+Exclude generated files (e.g. from dart_mappable):
+
+```yaml
+analyzer:
+  exclude:
+    - "**/*.mapper.dart"
+```
+
+## Goal
+
+Ensure that all code — manually or AI-generated — aligns with the project structure, preferred packages, and analysis configuration for consistency and maintainability.
