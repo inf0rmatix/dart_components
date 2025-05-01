@@ -30,6 +30,15 @@ class Locator {
   static void reset() => _Locator.instance.reset();
 }
 
+// Custom exception for unregistered types
+class UnregisteredTypeException implements Exception {
+  final Type type;
+  UnregisteredTypeException(this.type);
+
+  @override
+  String toString() => 'Factory for type \\$type not registered';
+}
+
 class _Locator {
   _Locator._internal();
 
@@ -51,7 +60,7 @@ class _Locator {
 
     final factoryFunction = _factories[T];
     if (factoryFunction == null) {
-      throw Exception("Factory for type $T not registered");
+      throw UnregisteredTypeException(T);
     }
 
     final instance = factoryFunction();
