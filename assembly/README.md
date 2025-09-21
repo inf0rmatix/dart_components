@@ -1,2 +1,13 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+# Assembly
+
+A tool for scaffolding new packages and applications.
+
+## Usage
+
+```bash
+dart run assembly/bin/assemble.dart design_package
+```
+
+```bash
+dart run assembly/bin/assemble.dart flutter_app
+```
