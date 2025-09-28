@@ -1,0 +1,6 @@
+name: app_feature_hooks
+environment:
+  sdk: ^3.9.2
+dependencies:
+  mason: any
+  lints: any
