@@ -123,25 +123,29 @@ class DesignPackage {
         ).list(recursive: true).where((e) => e is File).cast<File>().toList();
 
     for (final file in files) {
-      var content = await file.readAsString();
-      content = content
-          .replaceAll('CustomDesign', '${capPrefix}Design')
-          .replaceAll('Custom', capPrefix)
-          .replaceAll('custom_design', '${prefix}_design')
-          .replaceAll('package:custom_design', 'package:${prefix}_design')
-          .replaceAll("src/custom_", "src/${prefix}_")
-          .replaceAll("'custom_", "'${prefix}_")
-          .replaceAll('"custom_', '"${prefix}_')
-          .replaceAllMapped(
-            RegExp(r"export '([^']*)custom_"),
-            (m) => "export '${m[1]}${prefix}_",
-          )
-          .replaceAllMapped(
-            RegExp(r'export "([^"]*)custom_'),
-            (m) => 'export "${m[1]}${prefix}_',
-          );
+      try {
+        var content = await file.readAsString();
+        content = content
+            .replaceAll('CustomDesign', '${capPrefix}Design')
+            .replaceAll('Custom', capPrefix)
+            .replaceAll('custom_design', '${prefix}_design')
+            .replaceAll('package:custom_design', 'package:${prefix}_design')
+            .replaceAll("src/custom_", "src/${prefix}_")
+            .replaceAll("'custom_", "'${prefix}_")
+            .replaceAll('"custom_', '"${prefix}_')
+            .replaceAllMapped(
+              RegExp(r"export '([^']*)custom_"),
+              (m) => "export '${m[1]}${prefix}_",
+            )
+            .replaceAllMapped(
+              RegExp(r'export "([^"]*)custom_'),
+              (m) => 'export "${m[1]}${prefix}_',
+            );
 
-      await file.writeAsString(content);
+        await file.writeAsString(content);
+      } on FileSystemException {
+        _logger.detail('⏩ Skipping binary file: ${file.path}');
+      }
     }
   }
 }
