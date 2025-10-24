@@ -1,0 +1,14 @@
+include: package:lints/recommended.yaml
+
+formatter:
+  trailing_commas: preserve
+
+linter:
+  rules:
+    - require_trailing_commas
+    - prefer_expression_function_bodies
+    - prefer_const_constructors
+
+analyzer:
+  exclude:
+    - "**/__brick__/**"
