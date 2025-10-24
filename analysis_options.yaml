@@ -5,9 +5,18 @@ formatter:
 
 linter:
   rules:
-    - require_trailing_commas
-    - prefer_expression_function_bodies
+    - avoid_relative_lib_imports
+    - parameter_assignments
     - prefer_const_constructors
+    - prefer_const_constructors_in_immutables
+    - prefer_const_declarations
+    - prefer_const_literals_to_create_immutables
+    - prefer_expression_function_bodies
+    - prefer_final_fields
+    - prefer_final_in_for_each
+    - prefer_relative_imports
+    - require_trailing_commas
+    - sort_child_properties_last
 
 analyzer:
   exclude:

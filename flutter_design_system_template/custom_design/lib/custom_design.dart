@@ -1,2 +1,6 @@
+export 'src/atoms/display/custom_text.dart';
 export 'src/custom_colors.dart';
-export 'src/widgets/display/custom_text.dart';
+export 'src/theme/custom_text_type.dart';
+export 'src/theme/custom_theme.dart';
+export 'src/theme/custom_theme_data.dart';
+export 'src/theme/material/custom_material_theme.dart';

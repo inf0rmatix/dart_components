@@ -1,49 +1,8 @@
 import 'package:flutter/material.dart';
 
-enum CustomTextStyle {
-  displayLarge,
-  displayMedium,
-  displaySmall,
-  headlineLarge,
-  headlineMedium,
-  headlineSmall,
-  titleLarge,
-  titleMedium,
-  titleSmall,
-  labelLarge,
-  labelMedium,
-  labelSmall,
-  bodyLarge,
-  bodyMedium,
-  bodySmall;
-
-  TextStyle? asTextStyle(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
-    return switch (this) {
-      displayLarge => textTheme.displayLarge,
-      displayMedium => textTheme.displayMedium,
-      displaySmall => textTheme.displaySmall,
-      headlineLarge => textTheme.headlineLarge,
-      headlineMedium => textTheme.headlineMedium,
-      headlineSmall => textTheme.headlineSmall,
-      titleLarge => textTheme.titleLarge,
-      titleMedium => textTheme.titleMedium,
-      titleSmall => textTheme.titleSmall,
-      labelLarge => textTheme.labelLarge,
-      labelMedium => textTheme.labelMedium,
-      labelSmall => textTheme.labelSmall,
-      bodyLarge => textTheme.bodyLarge,
-      bodyMedium => textTheme.bodyMedium,
-      bodySmall => textTheme.bodySmall,
-    };
-  }
-}
+import '../../theme/custom_text_type.dart';
 
 class CustomText extends StatelessWidget {
-  final CustomTextStyle? _style;
-
   final String data;
   final TextStyle? style;
   final StrutStyle? strutStyle;
@@ -57,6 +16,7 @@ class CustomText extends StatelessWidget {
   final TextWidthBasis? textWidthBasis;
   final TextHeightBehavior? textHeightBehavior;
   final Color? selectionColor;
+  final CustomTextType? type;
 
   const CustomText(
     this.data, {
@@ -73,7 +33,8 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = null;
+    this.type,
+  });
 
   /// Creates a display large text widget.
   ///
@@ -93,7 +54,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.displayLarge;
+  }) : type = CustomTextType.displayLarge;
 
   /// Creates a display medium text widget.
   ///
@@ -113,7 +74,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.displayMedium;
+  }) : type = CustomTextType.displayMedium;
 
   /// Creates a display small text widget.
   ///
@@ -133,7 +94,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.displaySmall;
+  }) : type = CustomTextType.displaySmall;
 
   /// Creates a headline large text widget.
   ///
@@ -153,7 +114,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.headlineLarge;
+  }) : type = CustomTextType.headlineLarge;
 
   /// Creates a headline medium text widget.
   ///
@@ -173,7 +134,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.headlineMedium;
+  }) : type = CustomTextType.headlineMedium;
 
   /// Creates a headline small text widget.
   ///
@@ -193,7 +154,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.headlineSmall;
+  }) : type = CustomTextType.headlineSmall;
 
   /// Creates a title large text widget.
   ///
@@ -213,7 +174,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.titleLarge;
+  }) : type = CustomTextType.titleLarge;
 
   /// Creates a title medium text widget.
   ///
@@ -233,7 +194,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.titleMedium;
+  }) : type = CustomTextType.titleMedium;
 
   /// Creates a title small text widget.
   ///
@@ -253,7 +214,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.titleSmall;
+  }) : type = CustomTextType.titleSmall;
 
   /// Creates a label large text widget.
   ///
@@ -273,7 +234,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.labelLarge;
+  }) : type = CustomTextType.labelLarge;
 
   /// Creates a label medium text widget.
   ///
@@ -293,7 +254,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.labelMedium;
+  }) : type = CustomTextType.labelMedium;
 
   /// Creates a label small text widget.
   ///
@@ -313,7 +274,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.labelSmall;
+  }) : type = CustomTextType.labelSmall;
 
   /// Creates a body large text widget.
   ///
@@ -333,7 +294,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.bodyLarge;
+  }) : type = CustomTextType.bodyLarge;
 
   /// Creates a body medium text widget.
   ///
@@ -353,7 +314,7 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.bodyMedium;
+  }) : type = CustomTextType.bodyMedium;
 
   /// Creates a body small text widget.
   ///
@@ -373,11 +334,11 @@ class CustomText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  }) : _style = CustomTextStyle.bodySmall;
+  }) : type = CustomTextType.bodySmall;
 
   @override
   Widget build(BuildContext context) {
-    var textStyle = _style?.asTextStyle(context);
+    var textStyle = type?.textStyle(context);
 
     if (style != null) {
       textStyle = textStyle?.merge(style) ?? style;
