@@ -5,6 +5,7 @@ formatter:
 
 linter:
   rules:
+    - always_declare_return_types
     - avoid_relative_lib_imports
     - parameter_assignments
     - prefer_const_constructors

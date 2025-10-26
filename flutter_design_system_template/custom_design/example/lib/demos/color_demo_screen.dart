@@ -6,7 +6,7 @@ class ColorDemoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeColors = CustomTheme.current(context).colors;
+    final themeColors = CustomTheme.of(context).colors;
 
     final themeSwatches = <(String, Color)>[
       ('Primary', themeColors.primary),
@@ -160,8 +160,19 @@ class _ColorCard extends StatelessWidget {
     );
   }
 
-  String _toHex(Color c) {
-    final rgb = c.value & 0xFFFFFF;
-    return '#${rgb.toRadixString(16).padLeft(6, '0').toUpperCase()}';
+  String _toHex(Color color) {
+    final red = ((color.r * 255.0).round() & 0xff)
+        .toRadixString(16)
+        .padLeft(2, '0');
+
+    final green = ((color.g * 255.0).round() & 0xff)
+        .toRadixString(16)
+        .padLeft(2, '0');
+
+    final blue = ((color.b * 255.0).round() & 0xff)
+        .toRadixString(16)
+        .padLeft(2, '0');
+
+    return '#$red$green$blue'.toUpperCase();
   }
 }

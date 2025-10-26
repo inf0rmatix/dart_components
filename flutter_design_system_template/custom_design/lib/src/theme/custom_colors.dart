@@ -70,6 +70,40 @@ class CustomColors {
     this.info = darkCyan,
   });
 
+  /// Creates a color set with explicit role values.
+  CustomColors({
+    required this.primary,
+    required this.secondary,
+    required this.accent,
+    required this.onPrimary,
+    required this.onSecondary,
+    required this.surface,
+    required this.onSurface,
+    required this.error,
+    required this.warning,
+    required this.success,
+    required this.info,
+  });
+
+  /// Linearly interpolate between two [CustomColors] objects.
+  static CustomColors lerp(CustomColors a, CustomColors b, double t) {
+    Color lerpColor(Color x, Color y) => Color.lerp(x, y, t) ?? y;
+
+    return CustomColors(
+      primary: lerpColor(a.primary, b.primary),
+      secondary: lerpColor(a.secondary, b.secondary),
+      accent: lerpColor(a.accent, b.accent),
+      onPrimary: lerpColor(a.onPrimary, b.onPrimary),
+      onSecondary: lerpColor(a.onSecondary, b.onSecondary),
+      surface: lerpColor(a.surface, b.surface),
+      onSurface: lerpColor(a.onSurface, b.onSurface),
+      error: lerpColor(a.error, b.error),
+      warning: lerpColor(a.warning, b.warning),
+      success: lerpColor(a.success, b.success),
+      info: lerpColor(a.info, b.info),
+    );
+  }
+
   /// Creates a Material ColorScheme from the custom colors
   ColorScheme toColorScheme(Brightness brightness) => ColorScheme.fromSeed(
     brightness: brightness,
@@ -78,6 +112,8 @@ class CustomColors {
     onPrimary: onPrimary,
     secondary: secondary,
     onSecondary: onSecondary,
+    tertiary: accent,
+    onTertiary: white,
     surface: surface,
     onSurface: onSurface,
     shadow: brightness == Brightness.dark ? paynesGray : charcoal,

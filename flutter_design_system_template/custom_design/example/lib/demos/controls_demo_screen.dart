@@ -86,23 +86,25 @@ class _ControlsDemoScreenState extends State<ControlsDemoScreen> {
                   value: _checkboxValue,
                   onChanged: (v) => setState(() => _checkboxValue = v ?? false),
                 ),
-                RadioListTile<_FavoriteColor>(
-                  title: const Text('Red'),
-                  value: _FavoriteColor.red,
+                RadioGroup<_FavoriteColor>(
                   groupValue: _favoriteColor,
                   onChanged: (v) => setState(() => _favoriteColor = v),
-                ),
-                RadioListTile<_FavoriteColor>(
-                  title: const Text('Green'),
-                  value: _FavoriteColor.green,
-                  groupValue: _favoriteColor,
-                  onChanged: (v) => setState(() => _favoriteColor = v),
-                ),
-                RadioListTile<_FavoriteColor>(
-                  title: const Text('Blue'),
-                  value: _FavoriteColor.blue,
-                  groupValue: _favoriteColor,
-                  onChanged: (v) => setState(() => _favoriteColor = v),
+                  child: const Column(
+                    children: [
+                      RadioListTile<_FavoriteColor>(
+                        title: Text('Red'),
+                        value: _FavoriteColor.red,
+                      ),
+                      RadioListTile<_FavoriteColor>(
+                        title: Text('Green'),
+                        value: _FavoriteColor.green,
+                      ),
+                      RadioListTile<_FavoriteColor>(
+                        title: Text('Blue'),
+                        value: _FavoriteColor.blue,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
