@@ -80,7 +80,7 @@ class CustomColors {
     onSecondary: onSecondary,
     surface: surface,
     onSurface: onSurface,
-    shadow: brightness == Brightness.dark ? white : charcoal,
+    shadow: brightness == Brightness.dark ? paynesGray : charcoal,
     error: error,
     onError: white,
   );
