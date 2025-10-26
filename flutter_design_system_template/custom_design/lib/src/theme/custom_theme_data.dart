@@ -18,18 +18,18 @@ class CustomThemeData {
   CustomThemeData copyWith({
     CustomColors? colors,
     CustomTypography? typography,
-  }) => CustomThemeData.custom(
+  }) => CustomThemeData._(
     colors: colors ?? this.colors,
     typography: typography ?? this.typography,
   );
 
   static CustomThemeData lerp(CustomThemeData a, CustomThemeData b, double t) =>
-      CustomThemeData.custom(
+      CustomThemeData._(
         colors: CustomColors.lerp(a.colors, b.colors, t),
         typography: CustomTypography.lerp(a.typography, b.typography, t),
       );
 
-  const CustomThemeData.custom({
+  const CustomThemeData._({
     required this.colors,
     required this.typography,
   });

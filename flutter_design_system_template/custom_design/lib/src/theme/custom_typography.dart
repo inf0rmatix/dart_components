@@ -25,12 +25,12 @@ class CustomTypography {
     TextStyle lerpText(TextStyle x, TextStyle y) =>
         TextStyle.lerp(x, y, t) ?? y;
 
-    return CustomTypography.custom(
+    return CustomTypography._(
       exampleStyle: lerpText(a.exampleStyle, b.exampleStyle),
     );
   }
 
-  const CustomTypography.custom({
+  const CustomTypography._({
     required this.exampleStyle,
   });
 }

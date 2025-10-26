@@ -1,39 +1,129 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# custom_design
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+A minimal, extensible Flutter design system built to be extended using atomic
+design principles.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+**Features**:
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+- Theme tokens: `CustomThemeData` composed of `CustomColors` and
+  `CustomTypography`
+- Material bridge: `CustomMaterialTheme.light/dark` generates `ThemeData`
+- Context access: `CustomTheme.of(context)` for token access
+- Atomic components: Start with `CustomText`, extend with your own
+  atoms/molecules/organisms
 
-## Features
+**Use this package as a template to build your own design system.**
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Atomic design
 
-## Getting started
+This package follows atomic design to encourage scalable composition:
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- **Atoms**: Small, single-purpose UI elements (e.g., text, icons, inputs).
+  Example: `CustomText`.
+- **Molecules**: Simple combinations of atoms that form a single unit (e.g.,
+  labeled input, search field).
+- **Organisms**: Complex components composed of molecules and atoms (e.g., app
+  bars, cards, forms).
+
+**Folder conventions**:
+
+- Organize by type within each group: `atoms/display`, `atoms/input`
+- Extend categories as needed: `feedback`, `navigation`, `layout`
+
+## Install
+
+Add as a path dependency (adjust path to your workspace):
+
+```yaml
+dependencies:
+  flutter: any
+  custom_design:
+    path: flutter_design_system_template/custom_design
+```
+
+## Quick start
+
+```dart
+import 'package:custom_design/custom_design.dart';
+
+void main() {
+  const light = CustomThemeData.light();
+  const dark = CustomThemeData.dark();
+
+  runApp(MaterialApp(
+    theme: CustomMaterialTheme.light(light),
+    darkTheme: CustomMaterialTheme.dark(dark),
+    themeMode: ThemeMode.system,
+    home: const MyHomePage(),
+  ));
+}
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+**Access tokens anywhere:**
 
 ```dart
-const like = 'sample';
+final design = CustomTheme.of(context);
+final primary = design.colors.primary;
 ```
 
-## Additional information
+**Use semantic text variants:**
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+CustomText.titleMedium('Section title');
+CustomText.bodySmall(
+  'Caption',
+  style: TextStyle(color: CustomTheme.of(context).colors.onSurface),
+);
+```
+
+## Customize tokens
+
+Start from a preset and override tokens with `copyWith`:
+
+```dart
+final myDesign = CustomThemeData.light().copyWith(
+  colors: CustomColors(
+    primary: const Color(0xFF0057FF),
+    secondary: CustomColors.paynesGray,
+    accent: CustomColors.zomp,
+    onPrimary: CustomColors.white,
+    onSecondary: CustomColors.white,
+    surface: CustomColors.white,
+    onSurface: CustomColors.black,
+    error: CustomColors.red,
+    warning: CustomColors.orange,
+    success: CustomColors.green,
+    info: CustomColors.darkCyan,
+  ),
+);
+
+final theme = CustomMaterialTheme.light(myDesign);
+```
+
+## Extend Material component themes
+
+Add custom component themes under `theme/material` (e.g., button themes):
+
+```dart
+final base = CustomMaterialTheme.light(const CustomThemeData.light());
+final themed = base.copyWith(
+  filledButtonTheme: CustomFilledButtonTheme(),
+);
+```
+
+## Public API
+
+- `CustomColors`, `CustomTypography`, `CustomThemeData`
+- `CustomThemeExtension`, `CustomTheme`
+- `CustomMaterialTheme`
+- `CustomText`, `CustomTextType`
+
+## Example
+
+See `custom_design/example/` for a runnable demo.
+
+## License
+
+See `LICENSE` for details.
