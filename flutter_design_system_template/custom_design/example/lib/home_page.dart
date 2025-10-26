@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'demos/color_demo_screen.dart';
+import 'demos/controls_demo_screen.dart';
 import 'demos/text_demo_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,6 +31,7 @@ class _HomePageState extends State<HomePage> {
       children: const [
         TextDemoScreen(),
         ColorDemoScreen(),
+        ControlsDemoScreen(),
       ],
     ),
     bottomNavigationBar: BottomNavigationBar(
@@ -43,6 +45,10 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.color_lens),
           label: 'Color',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.tune),
+          label: 'Controls',
         ),
       ],
     ),

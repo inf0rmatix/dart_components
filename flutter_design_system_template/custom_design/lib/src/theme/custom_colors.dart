@@ -11,6 +11,8 @@ class CustomColors {
   static const Color zomp = Color(0xFF43AA8B);
   static const Color darkCyan = Color(0xFF4D908E);
   static const Color paynesGray = Color(0xFF577590);
+  static const Color charcoal = Color(0xFF2E3E4D);
+  static const Color richBlack = Color(0xFF171F26);
   static const Color cerulean = Color(0xFF277DA1);
 
   // Neutral colors
@@ -46,7 +48,7 @@ class CustomColors {
     this.accent = zomp,
     this.onPrimary = white,
     this.onSecondary = black,
-    this.surface = paynesGray,
+    this.surface = richBlack,
     this.onSurface = white,
     this.error = red,
     this.warning = orange,
@@ -78,6 +80,7 @@ class CustomColors {
     onSecondary: onSecondary,
     surface: surface,
     onSurface: onSurface,
+    shadow: brightness == Brightness.dark ? white : charcoal,
     error: error,
     onError: white,
   );
