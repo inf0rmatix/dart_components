@@ -3,8 +3,21 @@ import 'package:flutter/material.dart';
 
 import 'home_page.dart';
 
-class ExampleApp extends StatelessWidget {
+class ExampleApp extends StatefulWidget {
   const ExampleApp({super.key});
+
+  @override
+  State<ExampleApp> createState() => _ExampleAppState();
+}
+
+class _ExampleAppState extends State<ExampleApp> {
+  ThemeMode _themeMode = ThemeMode.system;
+
+  void _toggleTheme(bool isDark) {
+    setState(() {
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +29,11 @@ class ExampleApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: CustomMaterialTheme.light(light),
       darkTheme: CustomMaterialTheme.dark(dark),
-      home: const HomePage(),
+      themeMode: _themeMode,
+      home: HomePage(
+        themeMode: _themeMode,
+        onThemeChanged: _toggleTheme,
+      ),
     );
   }
 }

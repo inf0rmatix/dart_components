@@ -10,6 +10,7 @@ class CustomMaterialTheme {
       colorScheme: themeData.colors.toColorScheme(Brightness.dark),
       textTheme: CustomMaterialTextTheme().textTheme,
     );
+
     return base.copyWith(
       extensions: base.extensions.values.followedBy(
         [CustomThemeExtension(theme: themeData)],
@@ -22,6 +23,7 @@ class CustomMaterialTheme {
       colorScheme: themeData.colors.toColorScheme(Brightness.light),
       textTheme: CustomMaterialTextTheme().textTheme,
     );
+
     return base.copyWith(
       extensions: base.extensions.values.followedBy(
         [CustomThemeExtension(theme: themeData)],

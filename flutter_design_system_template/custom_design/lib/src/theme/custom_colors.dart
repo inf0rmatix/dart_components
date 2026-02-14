@@ -116,7 +116,6 @@ class CustomColors {
     onTertiary: white,
     surfaceContainerLowest: background,
     onSurface: onBackground,
-    shadow: brightness == Brightness.dark ? paynesGray : charcoal,
     error: error,
     onError: white,
   );

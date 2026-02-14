@@ -123,7 +123,6 @@ class _ColorCard extends StatelessWidget {
 
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 1,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
