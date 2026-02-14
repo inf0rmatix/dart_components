@@ -33,8 +33,8 @@ class CustomColors {
   final Color onPrimary;
   final Color onSecondary;
 
-  final Color surface;
-  final Color onSurface;
+  final Color background;
+  final Color onBackground;
 
   // Semantic colors
   final Color error;
@@ -48,8 +48,8 @@ class CustomColors {
     this.accent = zomp,
     this.onPrimary = white,
     this.onSecondary = black,
-    this.surface = richBlack,
-    this.onSurface = white,
+    this.background = richBlack,
+    this.onBackground = white,
     this.error = red,
     this.warning = orange,
     this.success = green,
@@ -62,8 +62,8 @@ class CustomColors {
     this.accent = zomp,
     this.onPrimary = white,
     this.onSecondary = white,
-    this.surface = white,
-    this.onSurface = black,
+    this.background = white,
+    this.onBackground = black,
     this.error = red,
     this.warning = orange,
     this.success = green,
@@ -77,8 +77,8 @@ class CustomColors {
     required this.accent,
     required this.onPrimary,
     required this.onSecondary,
-    required this.surface,
-    required this.onSurface,
+    required this.background,
+    required this.onBackground,
     required this.error,
     required this.warning,
     required this.success,
@@ -95,8 +95,8 @@ class CustomColors {
       accent: lerpColor(a.accent, b.accent),
       onPrimary: lerpColor(a.onPrimary, b.onPrimary),
       onSecondary: lerpColor(a.onSecondary, b.onSecondary),
-      surface: lerpColor(a.surface, b.surface),
-      onSurface: lerpColor(a.onSurface, b.onSurface),
+      background: lerpColor(a.background, b.background),
+      onBackground: lerpColor(a.onBackground, b.onBackground),
       error: lerpColor(a.error, b.error),
       warning: lerpColor(a.warning, b.warning),
       success: lerpColor(a.success, b.success),
@@ -114,8 +114,8 @@ class CustomColors {
     onSecondary: onSecondary,
     tertiary: accent,
     onTertiary: white,
-    surface: surface,
-    onSurface: onSurface,
+    surfaceContainerLowest: background,
+    onSurface: onBackground,
     shadow: brightness == Brightness.dark ? paynesGray : charcoal,
     error: error,
     onError: white,
