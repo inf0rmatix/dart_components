@@ -10,3 +10,4 @@ export 'src/theme/custom_theme_data.dart';
 export 'src/theme/custom_theme_extension.dart';
 export 'src/theme/custom_typography.dart';
 export 'src/theme/material/custom_material_theme.dart';
+export 'src/theme/tailwind_colors.dart';
