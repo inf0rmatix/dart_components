@@ -3,6 +3,7 @@ export 'src/atoms/layout/custom_spacer.dart';
 export 'src/atoms/layout/custom_spacer_sliver.dart';
 export 'src/theme/custom_colors.dart';
 export 'src/theme/custom_radius.dart';
+export 'src/theme/custom_shadows.dart';
 export 'src/theme/custom_spacing.dart';
 export 'src/theme/custom_text_type.dart';
 export 'src/theme/custom_theme.dart';
