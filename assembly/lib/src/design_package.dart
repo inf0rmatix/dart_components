@@ -122,24 +122,35 @@ class DesignPackage {
           dirPath,
         ).list(recursive: true).where((e) => e is File).cast<File>().toList();
 
+    const whitelist = [
+      'CustomScrollView',
+      'CustomPainter',
+      'CustomPaint',
+      'CustomClipper',
+      'CustomSingleChildLayout',
+      'CustomMultiChildLayout',
+    ];
+
     for (final file in files) {
       try {
         var content = await file.readAsString();
         content = content
             .replaceAll('CustomDesign', '${capPrefix}Design')
-            .replaceAll('Custom', capPrefix)
+            .replaceAllMapped(
+              RegExp(
+                'Custom(?!(${whitelist.map((e) => e.substring(6)).join('|')}))',
+              ),
+              (m) => capPrefix,
+            )
             .replaceAll('custom_design', '${prefix}_design')
             .replaceAll('package:custom_design', 'package:${prefix}_design')
-            .replaceAll("src/custom_", "src/${prefix}_")
-            .replaceAll("'custom_", "'${prefix}_")
-            .replaceAll('"custom_', '"${prefix}_')
             .replaceAllMapped(
-              RegExp(r"export '([^']*)custom_"),
-              (m) => "export '${m[1]}${prefix}_",
+              RegExp(r"(import|export|part|part of) '([^']*)'"),
+              (m) => "${m[1]} '${m[2]!.replaceAll('custom_', '${prefix}_')}'",
             )
             .replaceAllMapped(
-              RegExp(r'export "([^"]*)custom_'),
-              (m) => 'export "${m[1]}${prefix}_',
+              RegExp(r'(import|export|part|part of) "([^"]*)"'),
+              (m) => '${m[1]} "${m[2]!.replaceAll('custom_', '${prefix}_')}"',
             );
 
         await file.writeAsString(content);
