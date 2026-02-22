@@ -27,8 +27,8 @@ class _ExampleAppState extends State<ExampleApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: CustomMaterialTheme.light(light),
-      darkTheme: CustomMaterialTheme.dark(dark),
+      theme: CustomMaterialTheme().light(light),
+      darkTheme: CustomMaterialTheme().dark(dark),
       themeMode: _themeMode,
       home: HomePage(
         themeMode: _themeMode,

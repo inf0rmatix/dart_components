@@ -1,6 +1,9 @@
+export 'package:phosphor_flutter/phosphor_flutter.dart';
+
 export 'src/atoms/display/custom_text.dart';
 export 'src/atoms/layout/custom_spacer.dart';
 export 'src/atoms/layout/custom_spacer_sliver.dart';
+export 'src/extensions/build_context_theme_extension.dart';
 export 'src/theme/custom_colors.dart';
 export 'src/theme/custom_radius.dart';
 export 'src/theme/custom_shadows.dart';

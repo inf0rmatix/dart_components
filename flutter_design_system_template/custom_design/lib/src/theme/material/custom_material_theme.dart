@@ -5,7 +5,7 @@ import '../custom_theme_extension.dart';
 import 'custom_material_text_theme.dart';
 
 class CustomMaterialTheme {
-  static ThemeData dark(CustomThemeData themeData) {
+  ThemeData dark(CustomThemeData themeData) {
     final base = ThemeData.from(
       colorScheme: themeData.colors.toColorScheme(Brightness.dark),
       textTheme: CustomMaterialTextTheme().textTheme,
@@ -18,7 +18,7 @@ class CustomMaterialTheme {
     );
   }
 
-  static ThemeData light(CustomThemeData themeData) {
+  ThemeData light(CustomThemeData themeData) {
     final base = ThemeData.from(
       colorScheme: themeData.colors.toColorScheme(Brightness.light),
       textTheme: CustomMaterialTextTheme().textTheme,

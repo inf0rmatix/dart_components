@@ -338,15 +338,24 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textStyle = type?.textStyle(context);
+    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
+    TextStyle? finalTextStyle = defaultTextStyle.style;
 
+    // Apply the CookBookTextType style if provided
+    if (type != null) {
+      finalTextStyle = finalTextStyle
+          .merge(type!.textStyle(context))
+          .copyWith(color: defaultTextStyle.style.color);
+    }
+
+    // Apply the user-provided style if provided
     if (style != null) {
-      textStyle = textStyle?.merge(style) ?? style;
+      finalTextStyle = finalTextStyle.merge(style);
     }
 
     return Text(
       data,
-      style: textStyle,
+      style: finalTextStyle,
       strutStyle: strutStyle,
       textAlign: textAlign,
       textDirection: textDirection,
